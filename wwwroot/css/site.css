@@ -1,0 +1,39 @@
+@model List<Inquiry>
+@{
+    ViewData["Title"] = "User Dashboard";
+}
+
+<section class="section admin-panel">
+    <div class="container">
+        <h1>Your Project Inquiries</h1>
+
+        <div class="panel-box">
+            @if (!Model.Any())
+            {
+                <p>No inquiries yet. Start by <a asp-controller="Home" asp-action="Contact">contacting the studio</a>.</p>
+            }
+            else
+            {
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Project Type</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var inquiry in Model)
+                        {
+                            <tr>
+                                <td>@inquiry.ProjectType</td>
+                                <td>@inquiry.Message</td>
+                                <td>@inquiry.CreatedAt.ToString("MMM dd, yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</section>

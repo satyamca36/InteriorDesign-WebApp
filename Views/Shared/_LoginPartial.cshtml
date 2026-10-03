@@ -1,0 +1,4 @@
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <div class="user-chip">Welcome, @User.Identity.Name</div>
+}

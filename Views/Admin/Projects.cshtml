@@ -1,0 +1,55 @@
+@model AdminDashboardViewModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<section class="section admin-panel">
+    <div class="container">
+        <div class="top-actions">
+            <h1>Admin Dashboard</h1>
+            <a asp-action="CreateProject" class="btn btn-dark">Add Project</a>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span>Total Projects</span>
+                <strong>@Model.TotalProjects</strong>
+            </div>
+            <div class="stat-box">
+                <span>Total Inquiries</span>
+                <strong>@Model.TotalInquiries</strong>
+            </div>
+            <div class="stat-box">
+                <span>Total Users</span>
+                <strong>@Model.TotalUsers</strong>
+            </div>
+        </div>
+
+        <div class="panel-box">
+            <h3>Recent Projects</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Category</th>
+                        <th>Budget</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var project in Model.RecentProjects)
+                    {
+                        <tr>
+                            <td>@project.Title</td>
+                            <td>@project.Category</td>
+                            <td>₹@project.Budget.ToString("N0")</td>
+                            <td>
+                                <a asp-action="EditProject" asp-route-id="@project.Id">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

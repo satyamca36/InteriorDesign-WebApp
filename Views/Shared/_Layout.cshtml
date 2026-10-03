@@ -1,0 +1,81 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Atelier Luxe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="container nav-wrap">
+            <a asp-controller="Home" asp-action="Index" class="brand">Atelier Luxe</a>
+            <nav class="main-nav">
+                <a asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-controller="Projects" asp-action="Index">Projects</a>
+                <a asp-controller="Home" asp-action="About">About</a>
+                <a asp-controller="Home" asp-action="Contact">Contact</a>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Admin" asp-action="Dashboard">Admin</a>
+                }
+            </nav>
+            <div class="nav-actions">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a asp-controller="User" asp-action="Dashboard" class="btn btn-outline">Dashboard</a>
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="logout-form">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-dark">Logout</button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-outline">Login</a>
+                    <a asp-controller="Account" asp-action="Register" class="btn btn-dark">Register</a>
+                }
+            </div>
+        </div>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <h4>Atelier Luxe</h4>
+                <p>Luxury interiors that feel personal, warm, and timeless.</p>
+            </div>
+            <div>
+                <h5>Explore</h5>
+                <ul>
+                    <li><a asp-controller="Projects" asp-action="Index">Portfolio</a></li>
+                    <li><a asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-controller="Home" asp-action="Contact">Book a consultation</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5>Contact</h5>
+                <ul>
+                    <li>hello@atelierluxe.com</li>
+                    <li>+91 98765 43210</li>
+                    <li>12 Design Avenue, Bengaluru</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

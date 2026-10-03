@@ -1,0 +1,35 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="auth-section">
+    <div class="auth-box">
+        <h2>Login to your account</h2>
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="field-row">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" type="email" />
+            </div>
+
+            <div class="field-row">
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" type="password" />
+            </div>
+
+            <div class="field-row checkbox-row">
+                <input asp-for="RememberMe" type="checkbox" />
+                <label asp-for="RememberMe">Remember me</label>
+            </div>
+
+            <button type="submit" class="btn btn-dark full-width">Login</button>
+        </form>
+        <p class="auth-link">Need an account? <a asp-action="Register">Create one</a></p>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

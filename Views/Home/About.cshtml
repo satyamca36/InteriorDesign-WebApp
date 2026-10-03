@@ -1,0 +1,116 @@
+@model HomeViewModel
+@{
+    ViewData["Title"] = "Luxury Interiors";
+}
+
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <span class="eyebrow">Boutique interior design studio</span>
+            <h1>Turning houses into beautifully lived-in spaces.</h1>
+            <p>We craft premium residential and commercial interiors with elegance, comfort, and clarity.</p>
+            <div class="cta-row">
+                <a asp-controller="Projects" asp-action="Index" class="btn btn-dark">View Portfolio</a>
+                <a asp-controller="Home" asp-action="Contact" class="btn btn-outline-light">Book a Design Call</a>
+            </div>
+            <div class="stats-row">
+                <div><strong>350+</strong><span>Projects Completed</span></div>
+                <div><strong>18+</strong><span>Years Experience</span></div>
+                <div><strong>96%</strong><span>Client Retention</span></div>
+            </div>
+        </div>
+        <div class="hero-card">
+            <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80" alt="Modern interior" />
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="eyebrow">Our Signature Projects</span>
+            <h2>Spaces built for everyday beauty.</h2>
+        </div>
+
+        <div class="card-grid three-up">
+            @foreach (var project in Model.FeaturedProjects)
+            {
+                <article class="project-card">
+                    <img src="@project.ImageUrl" alt="@project.Title" />
+                    <div class="project-meta">
+                        <span>@project.Category</span>
+                        <h3>@project.Title</h3>
+                        <p>@project.Location</p>
+                        <div class="project-foot">
+                            <strong>₹@project.Budget.ToString("N0")</strong>
+                            <a asp-controller="Projects" asp-action="Details" asp-route-id="@project.Id">Explore</a>
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="section warm-bg">
+    <div class="container">
+        <div class="section-header center">
+            <span class="eyebrow">What we do</span>
+            <h2>Full-service interior design solutions.</h2>
+        </div>
+
+        <div class="card-grid four-up">
+            @foreach (var service in Model.Services)
+            {
+                <div class="info-card">
+                    <div class="icon-wrap"><i class="fa-solid @service.IconCss"></i></div>
+                    <h3>@service.Name</h3>
+                    <p>@service.Description</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="section testimonial-section">
+    <div class="container">
+        <div class="section-header center">
+            <span class="eyebrow">Client Love</span>
+            <h2>What our clients say.</h2>
+        </div>
+
+        <div class="card-grid three-up">
+            @foreach (var testimonial in Model.Testimonials)
+            {
+                <div class="testimonial-card">
+                    <div class="stars">@for (int i = 0; i < testimonial.Rating; i++) { <span>★</span> }</div>
+                    <p>“@testimonial.Quote”</p>
+                    <h4>@testimonial.Name</h4>
+                    <small>@testimonial.ProjectName</small>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="section blog-section">
+    <div class="container">
+        <div class="section-header center">
+            <span class="eyebrow">Insight & Ideas</span>
+            <h2>Latest from the studio.</h2>
+        </div>
+
+        <div class="card-grid two-up">
+            @foreach (var post in Model.BlogPosts)
+            {
+                <article class="blog-card">
+                    <img src="@post.ImageUrl" alt="@post.Title" />
+                    <div class="blog-card-body">
+                        <h3>@post.Title</h3>
+                        <p>@post.Content</p>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>

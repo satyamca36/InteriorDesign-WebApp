@@ -1,0 +1,33 @@
+@model List<Project>
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<section class="page-banner">
+    <div class="container">
+        <span class="eyebrow">Portfolio</span>
+        <h1>Curated interiors for modern living.</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="card-grid three-up">
+            @foreach (var project in Model)
+            {
+                <article class="project-card">
+                    <img src="@project.ImageUrl" alt="@project.Title" />
+                    <div class="project-meta">
+                        <span>@project.Category</span>
+                        <h3>@project.Title</h3>
+                        <p>@project.Location</p>
+                        <div class="project-foot">
+                            <strong>₹@project.Budget.ToString("N0")</strong>
+                            <a asp-action="Details" asp-route-id="@project.Id">View Details</a>
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>

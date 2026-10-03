@@ -1,0 +1,63 @@
+@model Inquiry
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<section class="page-banner">
+    <div class="container">
+        <span class="eyebrow">Let's begin</span>
+        <h1>Tell us about your project.</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container contact-grid">
+        <div class="contact-card">
+            <h3>Get in touch</h3>
+            <p>We’d love to hear about your dream space and help you make it real.</p>
+            <ul class="quiet-list">
+                <li><strong>Email:</strong> hello@atelierluxe.com</li>
+                <li><strong>Phone:</strong> +91 98765 43210</li>
+                <li><strong>Office:</strong> 12 Design Avenue, Bengaluru</li>
+            </ul>
+        </div>
+
+        <div class="form-card">
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="success-box">@TempData["SuccessMessage"]</div>
+            }
+
+            <form asp-action="Contact" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="field-row">
+                    <input asp-for="Name" placeholder="Your name" />
+                </div>
+                <div class="field-row">
+                    <input asp-for="Email" type="email" placeholder="Your email" />
+                </div>
+                <div class="field-row">
+                    <input asp-for="Phone" placeholder="Phone number" />
+                </div>
+                <div class="field-row">
+                    <select asp-for="ProjectType">
+                        <option value="">Select project type</option>
+                        <option>Residential Interior</option>
+                        <option>Commercial Interior</option>
+                        <option>Renovation</option>
+                        <option>Furniture Styling</option>
+                    </select>
+                </div>
+                <div class="field-row">
+                    <textarea asp-for="Message" rows="5" placeholder="Tell us about your project"></textarea>
+                </div>
+                <button type="submit" class="btn btn-dark full-width">Submit Inquiry</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
